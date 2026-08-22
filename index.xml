@@ -1,156 +1,278 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kylin blog</title><link>https://hikylin.github.io/</link><description>Recent content on kylin blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>kongyilin. All Rights Reserved</copyright><lastBuildDate>Sun, 15 Mar 2026 23:05:00 +0800</lastBuildDate><atom:link href="https://hikylin.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Event Simulation</title><link>https://hikylin.github.io/post/simulation/</link><pubDate>Sun, 15 Mar 2026 23:05:00 +0800</pubDate><guid>https://hikylin.github.io/post/simulation/</guid><description>&lt;img src="https://hikylin.github.io/post/images/covers/%E9%9B%AA%E6%99%AF%E5%BA%AD%E9%99%A2.png" alt="Featured image of post Event Simulation" /&gt;&lt;h2 id="柜台办理"&gt;柜台办理
-&lt;/h2&gt;&lt;p&gt;某运营商提供&lt;code&gt;num&lt;/code&gt;个柜台供业务办理，客户到达后先进入等候区排队，然后按规则到柜台办理。现有一批客户信息按到达先后顺序记录与&lt;code&gt;customers&lt;/code&gt;,&lt;code&gt;customers[i]=[arriveTime, userType, processTime]&lt;/code&gt;表示客户i的类型为userType(1:普通用户， 2：VIP客户)，在arriveTime时刻到达(arriveTime递增))，办理业务时长为processTime。
-柜台办理规则如下：&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kylin blog</title><link>https://hikylin.github.io/</link><description>Recent content on kylin blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>kongyilin. All Rights Reserved</copyright><lastBuildDate>Sat, 22 Aug 2026 19:51:00 +0800</lastBuildDate><atom:link href="https://hikylin.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>可信工程能力提升</title><link>https://hikylin.github.io/post/simulation/</link><pubDate>Sat, 22 Aug 2026 19:51:00 +0800</pubDate><guid>https://hikylin.github.io/post/simulation/</guid><description>&lt;img src="https://hikylin.github.io/post/images/covers/%E9%9B%AA%E6%99%AF%E5%BA%AD%E9%99%A2.png" alt="Featured image of post 可信工程能力提升" /&gt;&lt;h1 id="可信工程能力提升"&gt;可信工程能力提升
+&lt;/h1&gt;&lt;p&gt;本文转载于&amp;ndash;原hvv的一位前辈。希望可以帮助到你我。&lt;/p&gt;
+&lt;h2 id="开始之前"&gt;&lt;strong&gt;开始之前&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;我想先提出一个红车问题：今天上班路上，你看到红色的车了吗？&lt;/p&gt;
+&lt;p&gt;答案可能是否定的，但是事实每天你都可能见到了红色的车。而当你决定买一辆红色的车时候，你会发现怎么到处都是红色的车。心理学有很多相关的理论是解释这个现象。核心观点就是：&lt;strong&gt;人们会不自觉的关注自己在意的事情，并因此更容易在周围环境中发现与之相关的信息或机会。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果我们把红车看成目标或者机会，当你明确自己的目标并主动关注的时候，显然可以更容易发现他们。&lt;/p&gt;
+&lt;p&gt;因此说到面试，我很喜欢&lt;strong&gt;看机会&lt;/strong&gt;这个词，如果你关注机会，那么你也许很快就找到了机会，所以本文看到这里，核心内容就已经说完了。&lt;/p&gt;
+&lt;h2 id="面试"&gt;&lt;strong&gt;面试&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;其实我的面试历程比较简单，25 年开始的时候就慢慢看机会，我在投简历之前观察了一下市场，专门看了下现在前面开的包比较大的岗位是要做什么的，与我工作的相关度，然后针对性的修改简历进行面试。先找了一堆小公司面试，后面慢慢是一些大厂和外企，最后再有offer横向比较。&lt;/p&gt;
+&lt;p&gt;虽然说AI出现，各种公司陷入抢人才大战，和AI相关的岗位开的薪资很高，是存在一定的泡沫的。但我认为对于普通人来说泡沫是好事，也是难得的机会，没有资本的注入哪来的泡沫。而且AI兴起也就这么两年，既然以前所谓的专家摇身一变也能变成AI专家，咱们普通人也不要妄自菲薄，能来华子的学习能力都是没有问题的，脑子也不比谁差，认真学一学也能做泡沫中喝口汤。&lt;/p&gt;
+&lt;p&gt;去年大概面了 20 来家大小公司，认真准备的也就 10 家左右，下面是我在常规的面试流程中分点交流一下自己的理解，给各位一些参考。&lt;/p&gt;
+&lt;p&gt;在流程之前，我想补充一下我觉得面试之外的点，那就是：要深刻关注你的目标。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;当客户到达时，先排队，VIP优先；普通客户排在队尾，VIP客户插到队中首个普通用户前面，已有VIP客户的后面。&lt;/li&gt;
-&lt;li&gt;一旦柜面出现空闲，则队首客户到任意空闲柜台办理。
-最后按输入顺序返回每个客户处理完业务的时刻。&lt;/li&gt;
+&lt;li&gt;对于招聘方来说，别人是找一个一起共事，一起工作的同事&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id="输入"&gt;输入
-&lt;/h3&gt;&lt;p&gt;第一个参数为num, 1&amp;lt;= num&amp;lt;=10
-第二个参数为customers,1&amp;lt;=customers.length&amp;lt;=1000, 0&amp;lt;=arriveTime&amp;lt;=10^ 99, 1&amp;lt;=userType&amp;lt;=2, 1&amp;lt;=processTime&amp;lt;=10^ 6
-用例保证arriveTime递增。&lt;/p&gt;
-&lt;h3 id="输出"&gt;输出
-&lt;/h3&gt;&lt;p&gt;每个客户办理完业务的时刻列表&lt;/p&gt;
-&lt;h3 id="代码示例"&gt;代码示例
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
+&lt;p&gt;面试一般都是视频面试，因此你的所有输入信息，你的外貌、声音、表情，写代码的节奏都会是影响面试结果的参数。&lt;/p&gt;
+&lt;p&gt;所以你必须先调整好的摄像头，调整光线，面试时候保持一个干净、舒适的形象，让别人觉得和你做同事是舒服的。人生的一大捷径可能就是打扮好自己。“言语压君子，衣冠镇小人”，几乎没有人能摆脱以貌取人的刻板印象，大部分人无法免俗。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于面试的形式来说，本质就是聊天和写代码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;面试考察的内容有限，你要练习聊天能力，同样的文字内容，是带着一堆语气词，吞吞吐吐的说出来，还是流程清晰的中气十足的表达出来，结果是显然不同的。想象你要和心仪的女孩进行第一次约会，如此重要的场合，私下里一定会把：呼气、微笑、声线、语气、停顿，都刻意练习。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果没有明确说不允许录音，那就电脑开外放，手机录你的面试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;面试完复盘是学习成长最快的时候。平时我不想学，不想看的东西，别人一问，我就很有动力搞懂，因为当时没有回答出来的难受会让我记忆很久。所以有每次面试的录音，帮助自己复盘回答是很有必要的。我的方法是：每次面试完觉得自己回答不好的问题，和没有回答上来的问题，搞懂后，自己录音一遍回答，说到自己听着满意为止。&lt;/p&gt;
+&lt;h2 id="简历"&gt;简历
+&lt;/h2&gt;&lt;p&gt;简历改了大约一个月，中间还请了OpenAI的朋友帮我修改了一版。简历中的项目我是按他推荐统一如下格式写的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;项目名：名字后跟自己的角色&lt;/li&gt;
+&lt;li&gt;技术架构：一行说明&lt;/li&gt;
+&lt;li&gt;项目描述：说清楚项目背景&lt;/li&gt;
+&lt;li&gt;责任描述：3-4 点关键的工作&lt;/li&gt;
+&lt;li&gt;技术描述：3-4 点核心的技术点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;大概三个项目就能写一页，加上个人信息，教育经历，相关的技能，简历总共写了两页半。&lt;/p&gt;
+&lt;p&gt;投简历的时候，按照过来人的建议，针对不同的jd会对项目进行一下调整，调整目标就是增加你的项目和对方jd的匹配度，我觉得这个细节很重要，因为本来是OD面试机会不多，按照这个简历的调整后我只遇到一次简历挂的场景。&lt;/p&gt;
+&lt;h2 id="自我介绍"&gt;自我介绍
+&lt;/h2&gt;&lt;p&gt;这个过程没啥特别的，也没有什么特定模板。但是我多次面试体验下来一个技巧就是：根据面的岗位你的匹配程度，合理分配说的每个项目的时间：比如对于没有太多把握的面试，我习惯开始先把自己熟悉的项目多说一些，这样可以杀一些时间。对于自己熟悉的技术，可以在结束时候特地点一下，主动引导面试官往自己擅长的方向去说，有效增加前面技术面通过的概率。&lt;/p&gt;
+&lt;h2 id="项目技术"&gt;项目技术
+&lt;/h2&gt;&lt;p&gt;最基本的，需要把简历上的每个缩写，每个技术都搞清楚，否则被问到答不出来就很尴尬，那大概率这场面试也会挂。&lt;/p&gt;
+&lt;p&gt;每个面试官问的问题没有什么规律可言，问题形式可能不同，但是本质主要是围绕以下几个问题的回答流程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;项目中的挑战点，难点，怎么解决，解决后对你的成长&lt;/li&gt;
+&lt;li&gt;对一些技术的思考理解，方案选型怎么做trade-off&lt;/li&gt;
+&lt;li&gt;项目合作的方式，团队组成，项目周期的理解&lt;/li&gt;
+&lt;li&gt;对新技术的洞察&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些问题比较大，我的简历上咩个项目，我都针对的整理了这类大问题的回答话术，所以在被提问的时候，每个问题我都能从三个项目里套出一套输出。因为每个面试官的技术树可能不同，关注的具体项目也不太一样，只好全部准备出来，能应付前面的技术面试才有后续。&lt;/p&gt;
+&lt;p&gt;这块我无法给出我的项目的学习材料。技术相关很多经典书籍材料不做赘述，但是有一些公开的材料我认为值得一读。有拿来即用的观点，面试的时候随便旁征博引几句作为自己的思考，还是能让面试官眼前一亮的（我面试回答的时候会留意面试官的表情）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;关于软件工程：构建之法（第三版）作者邹欣&lt;/li&gt;
+&lt;li&gt;关于设计模式：游戏编程模式&lt;/li&gt;
+&lt;li&gt;关于MLSys：CMU 10-714，CMU 15-779&lt;/li&gt;
+&lt;li&gt;关于C++：&lt;a class="link" href="https://github.com/Cpp-Club/Cxx_HOPL4_zh" target="_blank" rel="noopener"
+&gt;https://github.com/Cpp-Club/Cxx_HOPL4_zh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;关于新技术：利用好公司的稼先社区，有的写的好的洞察，我会反复看到几乎全文背诵的程度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="coding"&gt;Coding
+&lt;/h2&gt;&lt;p&gt;由于自己是高考保送的竞赛选手，加上社招不会考太高级的算法，所以Coding环节还是比较轻松的，我个人关注的一些细节分享一下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;代码不要写太快，也不能写太慢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;轻松经历，写太快面试官会觉得你在背题，可能再给你加一道题，所以无论你觉得多么简单，控制 20 分钟左右写完。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;写之前和面试官保持沟通&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;问清楚问题的细节，比如数据规模，一些隐含的条件确认，简单讲讲你的思路，如果面试官肯定你的思路，那么这个题当然就完成一半了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;记得补充测试用例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;写完以后，增加一下边界用例，和基础测试用例，既方便自己调试，也能体现你的工程思维&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;尽量把时空复杂度写成最优&lt;/li&gt;
+&lt;li&gt;加上一下最优性的剪枝，空间的优化，细节的处理，这里是最能拉开差距的地方。这块说起来比较抽象，我给出几个常见的面试力扣算法题：&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class="link" href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/?envType=study-plan-v2&amp;amp;envId=top-100-liked" target="_blank" rel="noopener"
+&gt;无重复字符的最长子串&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Solution&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; lengthOfLongestSubstring(string s) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; left &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; max_len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; unordered_set&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;char&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; window;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; right &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; right &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; s.length(); right&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (window.find(s[right]) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; window.end()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; window.erase(s[left]);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; left&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; window.insert(s[right]);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; max_len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max(max_len, right &lt;span style="color:#f92672"&gt;-&lt;/span&gt; left &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; max_len;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* vector 每个字符出现的频率 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;lengthOfLongestSubstringVecFreq&lt;/span&gt;(string s) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; freq(&lt;span style="color:#ae81ff"&gt;128&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; max_len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; left &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; right &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; right &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; s.length(); right&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; freq[s[right]]&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (freq[s[right]] &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; freq[s[left]]&lt;span style="color:#f92672"&gt;--&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; left&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; max_len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max(max_len, right &lt;span style="color:#f92672"&gt;-&lt;/span&gt; left &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; max_len;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* 原文提到的方法 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;lengthOfLongsetSubstringVecPos&lt;/span&gt;(string s) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; pos(&lt;span style="color:#ae81ff"&gt;128&lt;/span&gt;, &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n &lt;span style="color:#f92672"&gt;=&lt;/span&gt; s.size(), start &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, ans &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; start &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max(start, pos[s[i]]);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max(ans, i &lt;span style="color:#f92672"&gt;-&lt;/span&gt; start);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pos[s[i]] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ans;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;本题的常规写法是滑动窗口，但是我认为其实更好的写法是维护字符上个出现位置。虽然时空复杂度一致，但是vector更新的效率会更高，减少了hash容器的维护成本，如果用这个写法，记得讲出你的写法的优势，会留下一个比较好的印象。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://leetcode.cn/problems/longest-palindromic-substring/description/?envType=study-plan-v2&amp;amp;envId=top-100-liked" target="_blank" rel="noopener"
+&gt;&lt;strong&gt;最长回文子串&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;//最长回文子串
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Solution&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; string longestPalindrome(string s) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n &lt;span style="color:#f92672"&gt;=&lt;/span&gt; s.size();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (n &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)&lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; s;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; start &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; maxLen &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; left &lt;span style="color:#f92672"&gt;=&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; right &lt;span style="color:#f92672"&gt;=&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (n &lt;span style="color:#f92672"&gt;-&lt;/span&gt; i &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; maxLen &lt;span style="color:#f92672"&gt;/&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;) { &lt;span style="color:#75715e"&gt;//剪枝 1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (right &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; s[right] &lt;span style="color:#f92672"&gt;==&lt;/span&gt; s[right &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;])right&lt;span style="color:#f92672"&gt;++&lt;/span&gt;; &lt;span style="color:#75715e"&gt;//剪枝 2
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;typedef&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; arriveTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; userType; &lt;span style="color:#75715e"&gt;// 1: 普通, 2: VIP
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; processTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;} Customer;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; right &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;/**
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @brief 模拟银行排队系统，计算每个客户的业务完成时间
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @param num 柜台数量
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @param customers 客户数组（已按到达时间排序）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @param customersSize 客户总数
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @param returnSize 输出参数，返回结果数组大小
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @return 动态分配的整数数组，对应每个客户的完成时间
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; */&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;GetUserFinishedTime&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; num, &lt;span style="color:#66d9ef"&gt;const&lt;/span&gt; Customer &lt;span style="color:#f92672"&gt;*&lt;/span&gt;customers, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; customersSize, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;returnSize) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 1. 边界检查
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (customersSize &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt; &lt;span style="color:#f92672"&gt;||&lt;/span&gt; num &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;returnSize &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (left &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; right &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; s[left] &lt;span style="color:#f92672"&gt;==&lt;/span&gt; s[right]) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; left&lt;span style="color:#f92672"&gt;--&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; right&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;returnSize &lt;span style="color:#f92672"&gt;=&lt;/span&gt; customersSize;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;result &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;) &lt;span style="color:#f92672"&gt;*&lt;/span&gt; customersSize);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;result) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; right &lt;span style="color:#f92672"&gt;-&lt;/span&gt; left &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 辅助数组
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;processed &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;calloc&lt;/span&gt;(customersSize, &lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;)); &lt;span style="color:#75715e"&gt;// 标记客户是否已办理
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;counterFreeTime &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;calloc&lt;/span&gt;(num, &lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt;)); &lt;span style="color:#75715e"&gt;// 记录每个柜台的空闲时刻
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; processedCount &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 初始化系统时间：从第一个客户到达时刻开始
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; currentTime &lt;span style="color:#f92672"&gt;=&lt;/span&gt; customers[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;].arriveTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 2. 主循环：直到所有客户办理完毕
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (processedCount &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; customersSize) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; bestCustomerIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;; &lt;span style="color:#75715e"&gt;// 本轮选中的客户
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; bestCounterIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;; &lt;span style="color:#75715e"&gt;// 分配给该客户的柜台
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// --- 阶段 A: 尝试在当前时刻匹配“空闲柜台”与“队首客户” ---
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; num; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 只有柜台空闲（空闲时刻 &amp;lt;= 当前时间）才考虑分配
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (counterFreeTime[i] &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; currentTime) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; vipIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; normalIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 遍历寻找“已到达且未处理”的客户
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 策略：优先找 VIP，若找不到 VIP 再找普通人
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; j &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; j &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; customersSize; j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;processed[j] &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; customers[j].arriveTime &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; currentTime) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (customers[j].userType &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; vipIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; j;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;; &lt;span style="color:#75715e"&gt;// 找到第一个 VIP 即可，VIP 优先级最高
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (normalIdx &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; normalIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; j; &lt;span style="color:#75715e"&gt;// 记录第一个普通人
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (len &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; maxLen) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; start &lt;span style="color:#f92672"&gt;=&lt;/span&gt; left &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; maxLen &lt;span style="color:#f92672"&gt;=&lt;/span&gt; len;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 决策：有 VIP 选 VIP，无 VIP 选普通人
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (vipIdx &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; bestCustomerIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; vipIdx;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; bestCounterIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; i;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;; &lt;span style="color:#75715e"&gt;// 命中最高优先级，立即跳出柜台循环去处理
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (normalIdx &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; bestCustomerIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; normalIdx;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; bestCounterIdx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; i;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;; &lt;span style="color:#75715e"&gt;// 命中普通人，立即跳出（任意空闲柜台均可）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; s.substr(start, maxLen);
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;本题最好的解法是马拉车算法（Manacher），时间复杂度可以做到O(n)O(n)，但是没有特别准备过一般人很难一把写出来，刚开始面试的时候出了这道题，调试半天写出来后感觉没有啥收益。感觉面试官出这道题最想看到的还是原始的O(n^2^)，该算法有好多种写法，时空复杂度最优的题解区都有，但是都还不够好。后续面试再遇到这个题，我掏出这个剪枝后，明显面试官是比较兴奋的，后面我测了下力扣上数据只用剪枝 2 是用时就不输马拉车算法了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://leetcode.cn/problems/lru-cache/description/?envType=study-plan-v2&amp;amp;envId=top-100-liked" target="_blank" rel="noopener"
+&gt;&lt;strong&gt;LRU缓存&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Node&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; key, value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;prev;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; k, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; v) &lt;span style="color:#f92672"&gt;:&lt;/span&gt; key(k), value(v), prev(&lt;span style="color:#66d9ef"&gt;nullptr&lt;/span&gt;), next(&lt;span style="color:#66d9ef"&gt;nullptr&lt;/span&gt;) {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// --- 阶段 B: 执行办理 或 时间跳跃 ---
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (bestCustomerIdx &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 【情况 1: 成功匹配】立即办理业务
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; startTime &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (counterFreeTime[bestCounterIdx] &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; customers[bestCustomerIdx].arriveTime)
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;?&lt;/span&gt; counterFreeTime[bestCounterIdx]
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;:&lt;/span&gt; customers[bestCustomerIdx].arriveTime;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;LRUCache&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;private&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; capacity;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; unordered_map&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;, Node &lt;span style="color:#f92672"&gt;*&amp;gt;&lt;/span&gt; cache;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;tail;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; finishTime &lt;span style="color:#f92672"&gt;=&lt;/span&gt; startTime &lt;span style="color:#f92672"&gt;+&lt;/span&gt; customers[bestCustomerIdx].processTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 更新状态
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; counterFreeTime[bestCounterIdx] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; finishTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; result[bestCustomerIdx] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;)finishTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; processed[bestCustomerIdx] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; processedCount&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 注意：不增加 currentTime，因为同一时刻可能有多个柜台同时空闲，需继续循环处理
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 【情况 2: 无法匹配】需要推进时间
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 原因可能是：所有柜台都忙，或者柜台有空但还没人到达
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 2.1 计算下一个关键时间点：最早的一个柜台变空闲的时间
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 既然能进到这里，说明要么全忙，要么没人。nextCounterFree 必然存在且有效。
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; nextCounterFree &lt;span style="color:#f92672"&gt;=&lt;/span&gt; counterFreeTime[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;];
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; num; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (counterFreeTime[i] &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; nextCounterFree) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; nextCounterFree &lt;span style="color:#f92672"&gt;=&lt;/span&gt; counterFreeTime[i];
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;addToHead&lt;/span&gt;(Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;node) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; node;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; node;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 2.2 计算下一个关键时间点：下一个未处理客户的到达时间
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; nextArrival &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; customersSize; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;processed[i]) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; nextArrival &lt;span style="color:#f92672"&gt;=&lt;/span&gt; customers[i].arriveTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;; &lt;span style="color:#75715e"&gt;// 输入有序，第一个即为最早
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;removeNode&lt;/span&gt;(Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;node) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;prev&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;prev;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 2.3 决定跳转到哪个时间
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;long&lt;/span&gt; jumpTime;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (nextArrival &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 所有人都已到达（在排队或办理中），只能等柜台空闲
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; jumpTime &lt;span style="color:#f92672"&gt;=&lt;/span&gt; nextCounterFree;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;moveToHead&lt;/span&gt;(Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;node) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; removeNode(node);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; addToHead(node);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;removeTail&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;rmNode &lt;span style="color:#f92672"&gt;=&lt;/span&gt; tail&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;prev;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; removeNode(rmNode);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; rmNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LRUCache(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; capacity) &lt;span style="color:#f92672"&gt;:&lt;/span&gt; capacity(capacity) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Node(&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Node(&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; tail;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; key) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;auto&lt;/span&gt; it&lt;span style="color:#f92672"&gt;=&lt;/span&gt;cache.find(key);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (it &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; cache.end()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; moveToHead(it&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;second);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; it&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;second&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;value;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 还有人没到，取“最早柜台空闲”和“下一个人到达”的较小值
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; jumpTime &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (nextCounterFree &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; nextArrival) &lt;span style="color:#f92672"&gt;?&lt;/span&gt; nextCounterFree : nextArrival;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 2.4 更新系统时间（防御性：确保时间严格向前推进，防止死循环）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (jumpTime &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; currentTime) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; currentTime &lt;span style="color:#f92672"&gt;=&lt;/span&gt; jumpTime;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; key, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; value) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;auto&lt;/span&gt; it&lt;span style="color:#f92672"&gt;=&lt;/span&gt;cache.find(key);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (it &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; cache.end()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; it&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;second&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;value &lt;span style="color:#f92672"&gt;=&lt;/span&gt; value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; moveToHead(it&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;second);
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; currentTime&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;node &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Node(key, value);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; addToHead(node);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// cache[key] = node;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cache.emplace(key, node);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (cache.size() &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; capacity) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;delNode &lt;span style="color:#f92672"&gt;=&lt;/span&gt; removeTail();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cache.erase(delNode&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;key);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;delete&lt;/span&gt; delNode;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(processed);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(counterFreeTime);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; result;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Leetcode Train</title><link>https://hikylin.github.io/post/leetcode/</link><pubDate>Wed, 14 Jan 2026 22:47:46 +0800</pubDate><guid>https://hikylin.github.io/post/leetcode/</guid><description>&lt;img src="https://hikylin.github.io/post/images/covers/%E8%8F%B2%E5%A5%A5%E5%A8%9C.png" alt="Featured image of post Leetcode Train" /&gt;&lt;h2 id="leetcode刷题"&gt;leetcode刷题
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;~&lt;/span&gt;LRUCache() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;current &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (current &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;nullptr&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; current&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;delete&lt;/span&gt; current;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; current &lt;span style="color:#f92672"&gt;=&lt;/span&gt; next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;本题题解区的所有解法都没有写析构函数，但是熟悉C++的朋友都知道，C++的对象生命周期管理是个复杂的话题，没有处理好将是灾难，所以作为常见的面试题，能写对逻辑出来结果很容易。我记得面试给这个题的时候我写完析构函数，阿里面试官说，我是他面试以来唯一一个考虑到写析构的人。我想这个细节肯定有不少加分的。&lt;/p&gt;
+&lt;p&gt;限于篇幅还有很多常见的算法题就不一一介绍了。因此注意刷题的时候不要仅仅追求通过，要追求最优的实现，这些袭击也是很体现你的Coding能力的地方。很多题解区的算法也不是最优的，做完后要深度思考一下，有没有更好的实现，尤其是常见的面试算法题。&lt;/p&gt;
+&lt;p&gt;另外面试一般都是共享屏幕白板的网页写，有的是自带语法提示，有的就相当于是一个Notepad，有的小公司会让你在本地的ide写但是要求关闭AI提示。因此要习惯白板写代码。对于C++记住常见的标准库，成员函数，刷题的时候要控制时间，补充测试用例和边界，个人体感就是直接写完一个bug free的代码也意味着这次面试通过了。&lt;/p&gt;
+&lt;h2 id="反问"&gt;反问
+&lt;/h2&gt;&lt;p&gt;我认为反问是一个非常能加分的环节，一开始我对这个环节非常随意，后来面试发现如果能提出好的针对该公司的问题，会大大增加面试官对你的兴趣。&lt;/p&gt;
+&lt;p&gt;一般我准备的反问就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;公司在某块技术的选型方向。&lt;/li&gt;
+&lt;li&gt;当前业务的技术难点在xxx，还是xxx&lt;/li&gt;
+&lt;li&gt;面试官眼里认为优秀的人才，具备什么特质。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样可以了解公司的一些技术方向，企业文化，选人的风格，给后续的面试增加一些准备。&lt;/p&gt;
+&lt;h2 id="谈薪"&gt;谈薪
+&lt;/h2&gt;&lt;p&gt;谈薪没什么特别的技巧，想最大化利益，本质要像渣男一样，每个offer都表示是自己最爱的那个。拿到offer后可以用来argue其他的offer。前期的offer尽量追求高的定级，用来谈其他offer时候议价空间会很高。除此之外，HR也会横向对比候选人，所以多准备几个offer用来体现你的竞争力。&lt;/p&gt;
+&lt;h2 id="心态"&gt;心态
+&lt;/h2&gt;&lt;p&gt;准备面试的时候和曾经一起比赛认识的学生时代的好友交流，如今再接触竟觉十分感慨。发现有人已经基本财富自由，有的人润去了喜欢的地方过上了想要的生活，还有些是职业发展不错在大厂已经身居高位。可能我们之前相处还算愉快，给了我很多好的见解和指导，由是感激。所以总结下来，上山时要谦虚坦诚，尽可能的帮助朋友，因为下山的时候还要碰见，你我或许曾经取得过一些成绩，可是下一次机会，说不定是曾经哪位朋友做的更好。如今，别人把你当回事的时候，千万别太认真，一声大佬或者老师，是对你曾经努力的尊重；不把你当回事的时候也别生气，风水轮流转，只要不下牌桌，总有机会。&lt;/p&gt;
+&lt;h2 id="诗酒趁年华"&gt;诗酒趁年华
+&lt;/h2&gt;&lt;p&gt;工作本身也只是进入地球online的支线任务，如果目标是赚钱，靠单纯工作积累大量财富是很难的，在别人的定价系统里被动追逐，没有生产资料，永远循环在靠时间换钱的框架里。&lt;/p&gt;
+&lt;p&gt;对于我这种普通人来说，能有的选择不多。最后看了一圈下来外面任然是存在work life balance的机会的，于我而言拥有双休和更多的假期，意味着更丰富的生活，远比多的那点薪水更有价值。&lt;/p&gt;
+&lt;p&gt;所以再回过头来看，面试只是人生的小插曲，面完后也只是换个地方工作而已。如果当前做的不开心就要付出改变的勇气，不要麻木在每日的上下班打卡中。要记得每天留点时间思考自己。&lt;/p&gt;
+&lt;h2 id="结语"&gt;结语
+&lt;/h2&gt;&lt;p&gt;“风月平生意，江湖自在身。”&lt;/p&gt;
+&lt;p&gt;祝愿你我都能找到人生的自由。&lt;/p&gt;</description></item><item><title>Leetcode Train</title><link>https://hikylin.github.io/post/leetcode/</link><pubDate>Wed, 14 Jan 2026 22:47:46 +0800</pubDate><guid>https://hikylin.github.io/post/leetcode/</guid><description>&lt;img src="https://hikylin.github.io/post/images/covers/%E8%8F%B2%E5%A5%A5%E5%A8%9C.png" alt="Featured image of post Leetcode Train" /&gt;&lt;h2 id="leetcode刷题"&gt;leetcode刷题
 &lt;/h2&gt;&lt;h3 id="滑动窗口"&gt;滑动窗口
 &lt;/h3&gt;&lt;h4 id="无重复字符的最长子串"&gt;&lt;a class="link" href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/?envType=study-plan-v2&amp;amp;envId=top-100-liked" target="_blank" rel="noopener"
 &gt;无重复字符的最长子串&lt;/a&gt;
